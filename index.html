@@ -1,295 +1,414 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-    <title>hajigrinof</title>
+```
+<title>hajigrinof</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        min-height: 100%;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 24px;
+
+        font-family: Arial, Helvetica, sans-serif;
+        background: #fff;
+        color: #202124;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .logo {
+        font-size: clamp(30px, 7vw, 50px);
+        font-weight: 500;
+        margin-bottom: clamp(25px, 6vw, 45px);
+        color: #4285f4;
+    }
+
+    .error-code {
+        font-size: clamp(72px, 18vw, 110px);
+        font-weight: 400;
+        line-height: 0.95;
+        letter-spacing: -5px;
+        margin: 0;
+        color: #202124;
+    }
+
+    h1 {
+        font-size: clamp(21px, 5vw, 24px);
+        font-weight: 400;
+        line-height: 1.3;
+        margin: 20px 0 12px;
+    }
+
+    p {
+        max-width: 500px;
+        font-size: 15px;
+        color: #5f6368;
+        line-height: 1.7;
+        margin: 0 0 30px;
+    }
+
+    button {
+        border: none;
+        cursor: pointer;
+
+        background: #1a73e8;
+        color: white;
+
+        padding: 12px 24px;
+        min-height: 44px;
+
+        border-radius: 5px;
+
+        font-size: 14px;
+        font-family: inherit;
+
+        transition:
+            background 0.2s,
+            transform 0.2s;
+    }
+
+    button:hover {
+        background: #1765c1;
+        transform: translateY(-1px);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+    button:disabled {
+        cursor: default;
+        opacity: 0.7;
+        transform: none;
+    }
+
+    .small {
+        margin-top: 35px;
+        font-size: 13px;
+        color: #9aa0a6;
+    }
+
+    /* Fixing section */
+
+    #fixing {
+        display: none;
+        width: 100%;
+        max-width: 450px;
+        margin-top: 25px;
+    }
+
+    .status {
+        font-size: 14px;
+        color: #5f6368;
+        margin-bottom: 12px;
+    }
+
+    .progress-box {
+        width: 100%;
+        height: 6px;
+
+        background: #e8eaed;
+
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress {
+        width: 0%;
+        height: 100%;
+
+        background: #1a73e8;
+
+        transition: width 0.15s linear;
+    }
+
+    /* Success */
+
+    #success {
+        display: none;
+        margin-top: 25px;
+
+        animation: appear 0.7s ease forwards;
+    }
+
+    .heart {
+        font-size: 45px;
+        margin-bottom: 10px;
+
+        animation: heartbeat 1.2s infinite;
+    }
+
+    .success-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .success-text {
+        color: #5f6368;
+        line-height: 1.7;
+        font-size: 15px;
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
         }
 
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes heartbeat {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.15);
+        }
+    }
+
+    /* Mobile */
+
+    @media (max-width: 500px) {
+
         body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #fff;
-            color: #202124;
+            padding: 20px;
         }
 
         .container {
-            width: min(90%, 1000px);
+            max-width: 100%;
         }
 
         .logo {
-            font-size: 50px;
-            font-weight: 500;
-            margin-bottom: 45px;
-            color: #4285f4;
-        }
-
-        .error-code {
-            font-size: 110px;
-            font-weight: 400;
-            letter-spacing: -5px;
-            margin: 0;
-            color: #202124;
-        }
-
-        h1 {
-            font-size: 24px;
-            font-weight: 400;
-            margin: 20px 0 12px;
-        }
-
-        p {
-            font-size: 15px;
-            color: #5f6368;
-            line-height: 1.6;
             margin-bottom: 30px;
         }
 
-        button {
-            border: none;
-            cursor: pointer;
-            background: #1a73e8;
-            color: white;
-            padding: 10px 22px;
-            border-radius: 4px;
+        .error-code {
+            letter-spacing: -3px;
+        }
+
+        h1 {
+            margin-top: 18px;
+        }
+
+        p {
             font-size: 14px;
-            transition: background 0.2s, transform 0.2s;
+            margin-bottom: 25px;
         }
 
-        button:hover {
-            background: #1765c1;
-            transform: translateY(-1px);
+        button {
+            width: auto;
+            min-width: 125px;
         }
-
-        button:disabled {
-            cursor: default;
-            opacity: 0.7;
-            transform: none;
-        }
-
-        .small {
-            margin-top: 35px;
-            font-size: 13px;
-            color: #9aa0a6;
-        }
-
-        /* Fixing section */
 
         #fixing {
-            display: none;
-            margin-top: 25px;
+            max-width: 100%;
+            margin-top: 22px;
         }
 
         .status {
-            font-size: 14px;
-            color: #5f6368;
-            margin-bottom: 12px;
+            font-size: 13px;
         }
 
-        .progress-box {
-            width: 100%;
-            max-width: 450px;
-            height: 6px;
-            background: #e8eaed;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress {
-            width: 0%;
-            height: 100%;
-            background: #1a73e8;
-            transition: width 0.15s linear;
-        }
-
-        /* Success */
-
-        #success {
-            display: none;
-            margin-top: 25px;
-            animation: appear 0.7s ease forwards;
-        }
-
-        .heart {
-            font-size: 45px;
-            margin-bottom: 10px;
-            animation: heartbeat 1.2s infinite;
+        .small {
+            margin-top: 30px;
         }
 
         .success-title {
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 22px;
         }
 
         .success-text {
-            color: #5f6368;
-            line-height: 1.7;
-            font-size: 15px;
+            font-size: 14px;
+        }
+    }
+
+    /* Very small phones */
+
+    @media (max-width: 360px) {
+
+        body {
+            padding: 16px;
         }
 
-        @keyframes appear {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .logo {
+            font-size: 28px;
+            margin-bottom: 25px;
         }
 
-        @keyframes heartbeat {
-            0%, 100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.15);
-            }
+        .error-code {
+            font-size: 68px;
         }
 
-        @media (max-width: 500px) {
-            .logo {
-                font-size: 38px;
-            }
-
-            .error-code {
-                font-size: 72px;
-            }
-
-            h1 {
-                font-size: 21px;
-            }
+        h1 {
+            font-size: 20px;
         }
-    </style>
+
+        p {
+            font-size: 13px;
+        }
+
+        button {
+            width: 100%;
+            max-width: 180px;
+        }
+    }
+</style>
+```
+
 </head>
 
 <body>
 
-    <main class="container">
+```
+<main class="container">
 
-        <div class="logo">hajigrinof</div>
+    <div class="logo">hajigrinof</div>
 
-        <div class="error-code">404</div>
+    <div class="error-code">404</div>
 
-        <h1 id="title">Love Not Found</h1>
+    <h1 id="title">Love Not Found</h1>
 
-        <p id="message">
-            In the search for love, no one but you was found.
-        </p>
+    <p id="message">
+        In the search for love, no one but you was found.
+    </p>
 
-        <button id="fixButton" onclick="fixError()">
-            Fix Error
-        </button>
+    <button id="fixButton" onclick="fixError()">
+        Fix Error
+    </button>
 
-        <div id="fixing">
+    <div id="fixing">
 
-            <div class="status" id="status">
-                Initializing repair...
-            </div>
-
-            <div class="progress-box">
-                <div class="progress" id="progress"></div>
-            </div>
-
+        <div class="status" id="status">
+            Initializing repair...
         </div>
 
-        <div id="success">
-
-            <div class="heart">❤️</div>
-
-            <div class="success-title">
-                Error Fixed.
-            </div>
-
-            <div class="success-text">
-                Love has been found.
-                <br>
-                She is <b>YOU</b>
-            </div>
-
+        <div class="progress-box">
+            <div class="progress" id="progress"></div>
         </div>
 
-        <div class="small">
-            Error 404 · Not Found
+    </div>
+
+    <div id="success">
+
+        <div class="heart">❤️</div>
+
+        <div class="success-title">
+            Error Fixed.
         </div>
 
-    </main>
+        <div class="success-text">
+            Love has been found.
+            <br>
+            She is <b>YOU</b>
+        </div>
 
-    <script>
+    </div>
 
-        function fixError() {
+    <div class="small">
+        Error 404 · Not Found
+    </div>
 
-            const button = document.getElementById("fixButton");
-            const fixing = document.getElementById("fixing");
-            const progress = document.getElementById("progress");
-            const status = document.getElementById("status");
-            const success = document.getElementById("success");
-            const title = document.getElementById("title");
-            const message = document.getElementById("message");
+</main>
 
-            button.disabled = true;
-            button.style.display = "none";
+<script>
 
-            fixing.style.display = "block";
+    function fixError() {
 
-            let percent = 0;
+        const button = document.getElementById("fixButton");
+        const fixing = document.getElementById("fixing");
+        const progress = document.getElementById("progress");
+        const status = document.getElementById("status");
+        const success = document.getElementById("success");
+        const title = document.getElementById("title");
+        const message = document.getElementById("message");
 
-            const messages = [
-                "Initializing repair...",
-                "Checking the heart...",
-                "Searching for missing love...",
-                "Scanning memories...",
-                "Almost there...",
-                "Finalizing..."
-            ];
+        button.disabled = true;
+        button.style.display = "none";
 
-            let messageIndex = 0;
+        fixing.style.display = "block";
 
-            const interval = setInterval(() => {
+        let percent = 0;
 
-                percent++;
+        const messages = [
+            "Initializing repair...",
+            "Checking the heart...",
+            "Searching for missing love...",
+            "Scanning memories...",
+            "Almost there...",
+            "Finalizing..."
+        ];
 
-                progress.style.width = percent + "%";
+        let messageIndex = 0;
 
-                if (percent % 18 === 0 && messageIndex < messages.length - 1) {
-                    messageIndex++;
-                    status.textContent = messages[messageIndex];
-                }
+        const interval = setInterval(() => {
 
-                if (percent >= 100) {
+            percent++;
 
-                    clearInterval(interval);
+            progress.style.width = percent + "%";
 
-                    setTimeout(() => {
+            if (
+                percent % 18 === 0 &&
+                messageIndex < messages.length - 1
+            ) {
+                messageIndex++;
+                status.textContent = messages[messageIndex];
+            }
 
-                        fixing.style.display = "none";
+            if (percent >= 100) {
 
-                        title.style.display = "none";
-                        message.style.display = "none";
+                clearInterval(interval);
 
-                        success.style.display = "block";
+                setTimeout(() => {
 
-                    }, 600);
-                }
+                    fixing.style.display = "none";
 
-            }, 35);
-        }
+                    title.style.display = "none";
+                    message.style.display = "none";
 
-    </script>
+                    success.style.display = "block";
+
+                }, 600);
+            }
+
+        }, 35);
+    }
+
+</script>
+```
 
 </body>
 
 </html>
-```
