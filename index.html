@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>hajigrinof</title>
 
     <style>
@@ -34,7 +36,7 @@
 
         .error-code {
             font-size: 110px;
-            font-weight: 40;
+            font-weight: 400;
             letter-spacing: -5px;
             margin: 0;
             color: #202124;
@@ -53,19 +55,26 @@
             margin-bottom: 30px;
         }
 
-        a {
-            display: inline-block;
-            text-decoration: none;
+        button {
+            border: none;
+            cursor: pointer;
             background: #1a73e8;
             color: white;
             padding: 10px 22px;
             border-radius: 4px;
             font-size: 14px;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.2s;
         }
 
-        a:hover {
-            background: #172bc1;
+        button:hover {
+            background: #1765c1;
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            cursor: default;
+            opacity: 0.7;
+            transform: none;
         }
 
         .small {
@@ -74,7 +83,87 @@
             color: #9aa0a6;
         }
 
+        /* Fixing section */
+
+        #fixing {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .status {
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 12px;
+        }
+
+        .progress-box {
+            width: 100%;
+            max-width: 450px;
+            height: 6px;
+            background: #e8eaed;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: #1a73e8;
+            transition: width 0.15s linear;
+        }
+
+        /* Success */
+
+        #success {
+            display: none;
+            margin-top: 25px;
+            animation: appear 0.7s ease forwards;
+        }
+
+        .heart {
+            font-size: 45px;
+            margin-bottom: 10px;
+            animation: heartbeat 1.2s infinite;
+        }
+
+        .success-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .success-text {
+            color: #5f6368;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
         @media (max-width: 500px) {
+            .logo {
+                font-size: 38px;
+            }
+
             .error-code {
                 font-size: 72px;
             }
@@ -94,13 +183,43 @@
 
         <div class="error-code">404</div>
 
-        <h1>Love Not Found</h1>
+        <h1 id="title">Love Not Found</h1>
 
-        <p>
+        <p id="message">
             In the search for love, no one but you was found.
         </p>
 
-        <a href="/">Go back home</a>
+        <button id="fixButton" onclick="fixError()">
+            Fix Error
+        </button>
+
+        <div id="fixing">
+
+            <div class="status" id="status">
+                Initializing repair...
+            </div>
+
+            <div class="progress-box">
+                <div class="progress" id="progress"></div>
+            </div>
+
+        </div>
+
+        <div id="success">
+
+            <div class="heart">❤️</div>
+
+            <div class="success-title">
+                Error Fixed.
+            </div>
+
+            <div class="success-text">
+                Love has been found.
+                <br>
+                She is <b>YOU</b>
+            </div>
+
+        </div>
 
         <div class="small">
             Error 404 · Not Found
@@ -108,5 +227,69 @@
 
     </main>
 
+    <script>
+
+        function fixError() {
+
+            const button = document.getElementById("fixButton");
+            const fixing = document.getElementById("fixing");
+            const progress = document.getElementById("progress");
+            const status = document.getElementById("status");
+            const success = document.getElementById("success");
+            const title = document.getElementById("title");
+            const message = document.getElementById("message");
+
+            button.disabled = true;
+            button.style.display = "none";
+
+            fixing.style.display = "block";
+
+            let percent = 0;
+
+            const messages = [
+                "Initializing repair...",
+                "Checking the heart...",
+                "Searching for missing love...",
+                "Scanning memories...",
+                "Almost there...",
+                "Finalizing..."
+            ];
+
+            let messageIndex = 0;
+
+            const interval = setInterval(() => {
+
+                percent++;
+
+                progress.style.width = percent + "%";
+
+                if (percent % 18 === 0 && messageIndex < messages.length - 1) {
+                    messageIndex++;
+                    status.textContent = messages[messageIndex];
+                }
+
+                if (percent >= 100) {
+
+                    clearInterval(interval);
+
+                    setTimeout(() => {
+
+                        fixing.style.display = "none";
+
+                        title.style.display = "none";
+                        message.style.display = "none";
+
+                        success.style.display = "block";
+
+                    }, 600);
+                }
+
+            }, 35);
+        }
+
+    </script>
+
 </body>
+
 </html>
+```
