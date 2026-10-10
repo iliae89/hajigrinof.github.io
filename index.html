@@ -1,443 +1,513 @@
 
 <!DOCTYPE html>
-
-<html lang="en">
-
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقدیم به عزیزکم ♡</title>
 
-    <title>hajigrinof</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
 
-    <style>
+:root {
+    --wine: #702d43;
+    --rose: #d9a0aa;
+    --gold: #c6a46a;
+    --cream: #fff8ee;
+}
 
-        * {
-            box-sizing: border-box;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #fff;
-            color: #202124;
-            position: relative;
-            overflow: hidden;
-        }
+body {
+    min-height: 100vh;
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+    color: var(--cream);
+    display: grid;
+    place-items: center;
+    padding: 30px 18px;
+    overflow-x: hidden;
+    background:
+        radial-gradient(ellipse at 15% 15%, #bd657d 0, transparent 34%),
+        radial-gradient(ellipse at 90% 85%, #411a30 0, transparent 45%),
+        linear-gradient(135deg, #341727, #692c43 50%, #291524);
+}
 
-        /* =========================
-           BLURRED BACKGROUND
-        ========================= */
+body::before,
+body::after {
+    content: "✦";
+    position: fixed;
+    color: #e8c995;
+    opacity: .65;
+    font-size: 28px;
+    animation: twinkle 3s infinite alternate;
+    pointer-events: none;
+}
 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: -20px;
+body::before {
+    top: 12%;
+    left: 12%;
+}
 
-            background-image: url("./hajigrinof.jpg");
-            background-size: cover;
-            background-position: center;
+body::after {
+    right: 11%;
+    bottom: 13%;
+    animation-delay: 1.5s;
+}
 
-            filter: blur(15px);
-            transform: scale(1.05);
+@keyframes twinkle {
+    from { opacity: .25; transform: scale(.8) rotate(0); }
+    to { opacity: .9; transform: scale(1.2) rotate(35deg); }
+}
 
-            opacity: 0;
+.page {
+    width: 100%;
+    max-width: 590px;
+    text-align: center;
+    position: relative;
+}
 
-            transition: opacity 1.5s ease;
+.eyebrow {
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: #e5c68f;
+    direction: ltr;
+    margin-bottom: 19px;
+}
 
-            z-index: -2;
-        }
+h1 {
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 500;
+    letter-spacing: -1px;
+    text-shadow: 0 4px 25px #00000030;
+}
 
-        /* یک لایه سفید خیلی کم‌رنگ روی عکس */
-        body::after {
-            content: "";
-            position: fixed;
-            inset: 0;
+.subtitle {
+    margin-top: 12px;
+    color: #e8cbd0;
+    font-size: 13px;
+    font-weight: 300;
+}
 
-            background: rgba(255, 255, 255, 0.35);
+.ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    margin: 25px auto 34px;
+    color: var(--gold);
+}
 
-            opacity: 0;
+.ornament::before,
+.ornament::after {
+    content: "";
+    width: 55px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+}
 
-            transition: opacity 1.5s ease;
+.ornament::after {
+    transform: rotate(180deg);
+}
 
-            z-index: -1;
-        }
+.scene {
+    width: min(100%, 390px);
+    margin: 0 auto;
+    perspective: 1200px;
+    position: relative;
+}
 
-        /* وقتی عکس فعال شد */
-        body.background-active::before {
-            opacity: 1;
-        }
+.envelope {
+    position: relative;
+    height: 245px;
+    cursor: pointer;
+    background: #c77e91;
+    border: 1px solid #e9c7a0;
+    box-shadow:
+        0 25px 65px #10081270,
+        0 0 0 7px #ffffff08,
+        0 0 0 8px #c9a46a45;
+    transition: transform .4s;
+    outline: none;
+}
 
-        body.background-active::after {
-            opacity: 1;
-        }
+.envelope:hover {
+    transform: translateY(-5px);
+}
 
+.envelope:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 10px;
+}
 
-        .container {
-            width: min(90%, 1000px);
-            position: relative;
-            z-index: 1;
-        }
+.back {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #e3adb8, #bd7287);
+}
 
-        .logo {
-            font-size: 50px;
-            font-weight: 500;
-            margin-bottom: 45px;
-            color: #00A651;
-        }
+.paper {
+    position: absolute;
+    left: 5%;
+    width: 90%;
+    top: 5%;
+    height: 90%;
+    z-index: 2;
+    background:
+        radial-gradient(ellipse at top left, white, transparent 60%),
+        var(--cream);
+    color: var(--wine);
+    border: 1px solid #d5b886;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 1s cubic-bezier(.2,.8,.2,1),
+                height 1s;
+}
 
-        .error-code {
-            font-size: 110px;
-            font-weight: 400;
-            letter-spacing: -5px;
-            margin: 0;
-            color: #000000;
-        }
+.paper::before {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border: 1px solid #c6a46a9c;
+}
 
-        h1 {
-            font-size: 24px;
-            font-weight: 400;
-            margin: 20px 0 12px;
-        }
+.paper-label {
+    color: #a17a4b;
+    font-size: 10px;
+    letter-spacing: 4px;
+    direction: ltr;
+    margin-bottom: 15px;
+}
 
-        p {
-            font-size: 15px;
-            color: #000000;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
+.paper h2 {
+    font-size: clamp(21px, 5vw, 27px);
+    font-weight: 600;
+}
 
-        button {
-            border: none;
-            cursor: pointer;
-            background: #004cc7;
-            color: white;
-            padding: 10px 22px;
-            border-radius: 4px;
-            font-size: 14px;
+.paper-heart {
+    color: #9b354e;
+    font-size: 23px;
+    margin-top: 14px;
+}
 
-            transition:
-                background 0.2s,
-                transform 0.2s;
-        }
+.flap {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    background: linear-gradient(140deg, #e7b5bd, #c98296);
+    clip-path: polygon(0 0, 100% 0, 50% 62%);
+    transform-origin: top;
+    transition: transform .75s ease;
+}
 
-        button:hover {
-            background: #3981d3;
-            transform: translateY(-1px);
-        }
+.front {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: linear-gradient(135deg, #d99aa9, #c57c91);
+    clip-path: polygon(0 0, 50% 57%, 100% 0, 100% 100%, 0 100%);
+}
 
-        button:disabled {
-            cursor: default;
-            opacity: 0.7;
-            transform: none;
-        }
+.front::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(35deg, #ffffff22, transparent 45%, #ffffff15);
+}
 
-        .small {
-            margin-top: 35px;
-            font-size: 13px;
-            color: #676666;
-        }
+.seal {
+    z-index: 5;
+    position: absolute;
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 29px;
+    color: #fbe9d1;
+    background:
+        radial-gradient(circle at 30% 25%, #ad5269, #76263f 75%);
+    border: 2px solid #d8b779;
+    box-shadow: 0 0 0 4px #8d4c5c55, 0 5px 14px #48202f66;
+    transition: opacity .3s, transform .3s;
+}
 
-        #fixing {
-            display: none;
-            margin-top: 25px;
-        }
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
 
-        .status {
-            font-size: 14px;
-            color: #000000;
-            margin-bottom: 12px;
-        }
+.envelope.open .seal {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.3);
+}
 
-        .progress-box {
-            width: 100%;
-            max-width: 300px;
-            height: 6px;
-            background: #e8eaed;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+.envelope.open .paper {
+    height: 275px;
+    transform: translateY(-105px);
+    z-index: 5;
+}
 
-        .progress {
-            width: 0%;
-            height: 100%;
-            background: #1a73e8;
-            transition: width 0.15s linear;
-        }
+.hint {
+    margin: 27px 0 0;
+    font-size: 12px;
+    color: #e6c4ca;
+    transition: opacity .3s;
+}
 
-        #success {
-            display: none;
-            margin-top: 25px;
-            animation: appear 0.7s ease forwards;
-        }
+.hint span {
+    display: inline-block;
+    color: var(--gold);
+    margin-right: 6px;
+    animation: point 1.3s infinite;
+}
 
-        .heart {
-            font-size: 45px;
-            margin-bottom: 10px;
-            animation: heartbeat 1.2s infinite;
-        }
+@keyframes point {
+    50% { transform: translateY(4px); }
+}
 
-        .success-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+.letter {
+    display: none;
+    margin-top: 15px;
+    position: relative;
+    padding: 30px 22px;
+    color: var(--wine);
+    background:
+        radial-gradient(ellipse at top left, white, transparent 60%),
+        var(--cream);
+    border: 1px solid #d3b47b;
+    box-shadow: 0 15px 50px #17091440;
+}
 
-        .success-text {
-            color: #000000;
-            line-height: 1.7;
-            font-size: 15px;
-        }
+.letter::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 1px solid #c6a46a88;
+    pointer-events: none;
+}
 
-        @keyframes appear {
+.letter.show {
+    display: block;
+    animation: appear .8s ease both;
+}
 
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
+@keyframes appear {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+.letter .tiny {
+    color: #b48c55;
+    font-size: 11px;
+    letter-spacing: 3px;
+    direction: ltr;
+}
 
-        }
+.letter h2 {
+    font-size: 25px;
+    font-weight: 600;
+    margin: 12px 0;
+}
 
-        @keyframes heartbeat {
+.letter p {
+    font-size: 13px;
+    line-height: 2.4;
+    font-weight: 400;
+}
 
-            0%, 100% {
-                transform: scale(1);
-            }
+.letter .heart-bottom {
+    font-size: 22px;
+    color: #9b354e;
+    margin-top: 12px;
+}
 
-            50% {
-                transform: scale(1.15);
-            }
+.music {
+    display: none;
+    margin-top: 15px;
+    padding: 22px;
+    border: 1px solid #c6a46a99;
+    background: #fff8ee0c;
+    backdrop-filter: blur(10px);
+}
 
-        }
+.music.show {
+    display: block;
+    animation: appear .9s ease both;
+}
 
+.music-icon {
+    color: var(--gold);
+    font-size: 25px;
+    margin-bottom: 5px;
+}
 
-        /* Mobile */
+.music h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 7px;
+}
 
-        @media (max-width: 450px) {
-            body::before {
-                filter: blur(9px);
-            }
+.music p {
+    font-size: 11px;
+    color: #e5cbd0;
+    margin-bottom: 17px;
+}
 
-            .container {
-                transform: translateX(15px);
-            }
+.download {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    justify-content: center;
+    text-decoration: none;
+    color: #42202d;
+    background: linear-gradient(135deg, #f0d9ad, #c9a46a);
+    padding: 12px 24px;
+    font-size: 12px;
+    font-family: inherit;
+    transition: transform .25s, box-shadow .25s;
+}
 
-            .logo {
-                font-size: 38px;
-            }
+.download:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px #00000020;
+}
 
-            .error-code {
-                font-size: 72px;
-            }
+.footer {
+    margin-top: 32px;
+    font-size: 9px;
+    color: #c7a3ab;
+    letter-spacing: 4px;
+    direction: ltr;
+}
 
-            h1 {
-                font-size: 21px;
-            }
+@media (max-width: 480px) {
+    body {
+        padding: 35px 17px;
+    }
 
-            p {
-                font-size: 14px;
-            }
+    .envelope {
+        height: 205px;
+    }
 
-        }
+    .envelope.open .paper {
+        height: 250px;
+        transform: translateY(-95px);
+    }
 
-    </style>
+    .letter {
+        padding: 25px 17px;
+    }
 
+    .letter h2 {
+        font-size: 22px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
-    <main class="container">
+<main class="page">
+    <div class="eyebrow">A LITTLE GIFT FOR YOU</div>
 
-        <div class="logo">
-            hajigrinof
+    <h1>برای عزیزترینم</h1>
+    <p class="subtitle">یه نامه، یه آرزو، یه عالمه حس خوب ♡</p>
+
+    <div class="ornament">✦</div>
+
+    <div class="scene">
+        <div class="envelope" id="envelope"
+             role="button" tabindex="0"
+             aria-label="باز کردن نامه">
+
+            <div class="back"></div>
+
+            <div class="paper">
+                <div class="paper-label">SEALED WITH LOVE</div>
+                <h2>تقدیم به عزیزکم</h2>
+                <div class="paper-heart">♥</div>
+            </div>
+
+            <div class="flap"></div>
+            <div class="front"></div>
+            <div class="seal">♥</div>
         </div>
+    </div>
 
-        <div class="error-code">
-            404
-        </div>
+    <p class="hint" id="hint">
+        نامه رو باز کن و هدیه‌ت رو ببین <span>↓</span>
+    </p>
 
-        <h1 id="title">
-            Love Not Found
-        </h1>
-
-        <p id="message">
-            In the search for love, no one but one person was found.
+    <section class="letter" id="letter">
+        <div class="tiny">A SPECIAL WISH</div>
+        <h2>تبریک می‌گم عزیزکم ♡</h2>
+        <p>
+            آرزو می‌کنم همیشه دلت خوش باشه، لبت خندون و دنیات پر از قشنگ‌ترین اتفاق‌ها.
         </p>
-
-        <button id="fixButton" onclick="fixError()">
-            Fix Error
-        </button>
-
-
-        <div id="fixing">
-
-            <div class="status" id="status">
-                Initializing repair...
-            </div>
-
-            <div class="progress-box">
-
-                <div
-                    class="progress"
-                    id="progress">
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div id="success">
-
-            <div class="heart">
-                💚
-            </div>
-
-            <div class="success-title">
-                Error Fixed.
-            </div>
-
-            <div class="success-text">
-
-                Love has been found.
-
-                <br>
-
-                She is <b>YOU</b> :)
-
-            </div>
-
-        </div>
-
-
-        <div class="small">
-            Error 404 · Not Found
-        </div>
-
-    </main>
-
-
-    <script>
-
-        function fixError() {
-
-            const button =
-                document.getElementById("fixButton");
-
-            const fixing =
-                document.getElementById("fixing");
-
-            const progress =
-                document.getElementById("progress");
-
-            const status =
-                document.getElementById("status");
-
-            const success =
-                document.getElementById("success");
-
-            const title =
-                document.getElementById("title");
-
-            const message =
-                document.getElementById("message");
-
-
-            button.disabled = true;
-
-            button.style.display = "none";
-
-            fixing.style.display = "block";
-
-
-            let percent = 0;
-
-
-            const messages = [
-
-                "Initializing repair...",
-                "Checking the heart...",
-                "Searching for missing love...",
-                "Scanning memories...",
-                "Almost there...",
-                "Finalizing..."
-
-            ];
-
-
-            let messageIndex = 0;
-
-
-            const interval = setInterval(() => {
-
-                percent++;
-
-                progress.style.width =
-                    percent + "%";
-
-
-                if (
-                    percent % 18 === 0 &&
-                    messageIndex < messages.length - 1
-                ) {
-
-                    messageIndex++;
-
-                    status.textContent =
-                        messages[messageIndex];
-
-                }
-
-
-                if (percent >= 100) {
-
-                    clearInterval(interval);
-
-
-                    setTimeout(() => {
-
-                        /* مخفی کردن مرحله تعمیر */
-
-                        fixing.style.display = "none";
-
-
-                        /* مخفی کردن متن اولیه */
-
-                        title.style.display = "none";
-
-                        message.style.display = "none";
-
-
-                        /* نمایش نتیجه */
-
-                        success.style.display = "block";
-
-
-                        /* فعال کردن عکس پس زمینه */
-
-                        document.body.classList.add(
-                            "background-active"
-                        );
-
-
-                    }, 600);
-
-                }
-
-            }, 35);
-
-        }
-
-    </script>
+        <div class="heart-bottom">♥</div>
+    </section>
+
+    <section class="music" id="music">
+        <div class="music-icon">♫</div>
+        <h3>یه آهنگ برای تو</h3>
+        <p>اینم یه یادگاری کوچیک که برای خودت نگهش داری.</p>
+
+        <a class="download" href="./song.mp3" download="jalebeh.mp3">
+            <span>↓</span>
+            دانلود آهنگ مخصوصت
+        </a>
+    </section>
+
+    <footer class="footer">MADE WITH LOVE · JUST FOR YOU</footer>
+</main>
+
+<script>
+const envelope = document.getElementById("envelope");
+const hint = document.getElementById("hint");
+const letter = document.getElementById("letter");
+const music = document.getElementById("music");
+
+let opened = false;
+
+function openLetter() {
+    if (opened) return;
+    opened = true;
+
+    envelope.classList.add("open");
+    hint.style.opacity = "0";
+
+    setTimeout(() => {
+        letter.classList.add("show");
+        music.classList.add("show");
+        hint.style.display = "none";
+    }, 700);
+}
+
+envelope.addEventListener("click", openLetter);
+
+envelope.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openLetter();
+    }
+});
+</script>
 
 </body>
-
 </html>
