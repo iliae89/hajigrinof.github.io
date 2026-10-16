@@ -1,513 +1,238 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>hajigrinof    </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
+  <title>سه قاب از خاطرات ❤️</title>
 
-:root {
-    --wine: #702d43;
-    --rose: #d9a0aa;
-    --gold: #c6a46a;
-    --cream: #fff8ee;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    min-height: 100vh;
-    font-family: 'Vazirmatn', Tahoma, sans-serif;
-    color: var(--cream);
-    display: grid;
-    place-items: center;
-    padding: 30px 18px;
-    overflow-x: hidden;
-    background:
-        radial-gradient(ellipse at 15% 15%, #bd657d 0, transparent 34%),
-        radial-gradient(ellipse at 90% 85%, #411a30 0, transparent 45%),
-        linear-gradient(135deg, #341727, #692c43 50%, #291524);
-}
-
-body::before,
-body::after {
-    content: "✦";
-    position: fixed;
-    color: #e8c995;
-    opacity: .65;
-    font-size: 28px;
-    animation: twinkle 3s infinite alternate;
-    pointer-events: none;
-}
-
-body::before {
-    top: 12%;
-    left: 12%;
-}
-
-body::after {
-    right: 11%;
-    bottom: 13%;
-    animation-delay: 1.5s;
-}
-
-@keyframes twinkle {
-    from { opacity: .25; transform: scale(.8) rotate(0); }
-    to { opacity: .9; transform: scale(1.2) rotate(35deg); }
-}
-
-.page {
-    width: 100%;
-    max-width: 590px;
-    text-align: center;
-    position: relative;
-}
-
-.eyebrow {
-    font-size: 10px;
-    letter-spacing: 6px;
-    color: #e5c68f;
-    direction: ltr;
-    margin-bottom: 19px;
-}
-
-h1 {
-    font-size: clamp(28px, 6vw, 42px);
-    font-weight: 500;
-    letter-spacing: -1px;
-    text-shadow: 0 4px 25px #00000030;
-}
-
-.subtitle {
-    margin-top: 12px;
-    color: #e8cbd0;
-    font-size: 13px;
-    font-weight: 300;
-}
-
-.ornament {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 13px;
-    margin: 25px auto 34px;
-    color: var(--gold);
-}
-
-.ornament::before,
-.ornament::after {
-    content: "";
-    width: 55px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold));
-}
-
-.ornament::after {
-    transform: rotate(180deg);
-}
-
-.scene {
-    width: min(100%, 390px);
-    margin: 0 auto;
-    perspective: 1200px;
-    position: relative;
-}
-
-.envelope {
-    position: relative;
-    height: 245px;
-    cursor: pointer;
-    background: #c77e91;
-    border: 1px solid #e9c7a0;
-    box-shadow:
-        0 25px 65px #10081270,
-        0 0 0 7px #ffffff08,
-        0 0 0 8px #c9a46a45;
-    transition: transform .4s;
-    outline: none;
-}
-
-.envelope:hover {
-    transform: translateY(-5px);
-}
-
-.envelope:focus-visible {
-    outline: 2px solid var(--gold);
-    outline-offset: 10px;
-}
-
-.back {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(145deg, #e3adb8, #bd7287);
-}
-
-.paper {
-    position: absolute;
-    left: 5%;
-    width: 90%;
-    top: 5%;
-    height: 90%;
-    z-index: 2;
-    background:
-        radial-gradient(ellipse at top left, white, transparent 60%),
-        var(--cream);
-    color: var(--wine);
-    border: 1px solid #d5b886;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: transform 1s cubic-bezier(.2,.8,.2,1),
-                height 1s;
-}
-
-.paper::before {
-    content: "";
-    position: absolute;
-    inset: 9px;
-    border: 1px solid #c6a46a9c;
-}
-
-.paper-label {
-    color: #a17a4b;
-    font-size: 10px;
-    letter-spacing: 4px;
-    direction: ltr;
-    margin-bottom: 15px;
-}
-
-.paper h2 {
-    font-size: clamp(21px, 5vw, 27px);
-    font-weight: 600;
-}
-
-.paper-heart {
-    color: #9b354e;
-    font-size: 23px;
-    margin-top: 14px;
-}
-
-.flap {
-    position: absolute;
-    inset: 0;
-    z-index: 4;
-    background: linear-gradient(140deg, #e7b5bd, #c98296);
-    clip-path: polygon(0 0, 100% 0, 50% 62%);
-    transform-origin: top;
-    transition: transform .75s ease;
-}
-
-.front {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    background: linear-gradient(135deg, #d99aa9, #c57c91);
-    clip-path: polygon(0 0, 50% 57%, 100% 0, 100% 100%, 0 100%);
-}
-
-.front::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(35deg, #ffffff22, transparent 45%, #ffffff15);
-}
-
-.seal {
-    z-index: 5;
-    position: absolute;
-    top: 49%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: 29px;
-    color: #fbe9d1;
-    background:
-        radial-gradient(circle at 30% 25%, #ad5269, #76263f 75%);
-    border: 2px solid #d8b779;
-    box-shadow: 0 0 0 4px #8d4c5c55, 0 5px 14px #48202f66;
-    transition: opacity .3s, transform .3s;
-}
-
-.envelope.open .flap {
-    transform: rotateX(180deg);
-    z-index: 1;
-}
-
-.envelope.open .seal {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(.3);
-}
-
-.envelope.open .paper {
-    height: 275px;
-    transform: translateY(-105px);
-    z-index: 5;
-}
-
-.hint {
-    margin: 27px 0 0;
-    font-size: 12px;
-    color: #e6c4ca;
-    transition: opacity .3s;
-}
-
-.hint span {
-    display: inline-block;
-    color: var(--gold);
-    margin-right: 6px;
-    animation: point 1.3s infinite;
-}
-
-@keyframes point {
-    50% { transform: translateY(4px); }
-}
-
-.letter {
-    display: none;
-    margin-top: 15px;
-    position: relative;
-    padding: 30px 22px;
-    color: var(--wine);
-    background:
-        radial-gradient(ellipse at top left, white, transparent 60%),
-        var(--cream);
-    border: 1px solid #d3b47b;
-    box-shadow: 0 15px 50px #17091440;
-}
-
-.letter::before {
-    content: "";
-    position: absolute;
-    inset: 7px;
-    border: 1px solid #c6a46a88;
-    pointer-events: none;
-}
-
-.letter.show {
-    display: block;
-    animation: appear .8s ease both;
-}
-
-@keyframes appear {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.letter .tiny {
-    color: #b48c55;
-    font-size: 11px;
-    letter-spacing: 3px;
-    direction: ltr;
-}
-
-.letter h2 {
-    font-size: 25px;
-    font-weight: 600;
-    margin: 12px 0;
-}
-
-.letter p {
-    font-size: 13px;
-    line-height: 2.4;
-    font-weight: 400;
-}
-
-.letter .heart-bottom {
-    font-size: 22px;
-    color: #9b354e;
-    margin-top: 12px;
-}
-
-.music {
-    display: none;
-    margin-top: 15px;
-    padding: 22px;
-    border: 1px solid #c6a46a99;
-    background: #fff8ee0c;
-    backdrop-filter: blur(10px);
-}
-
-.music.show {
-    display: block;
-    animation: appear .9s ease both;
-}
-
-.music-icon {
-    color: var(--gold);
-    font-size: 25px;
-    margin-bottom: 5px;
-}
-
-.music h3 {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 7px;
-}
-
-.music p {
-    font-size: 11px;
-    color: #e5cbd0;
-    margin-bottom: 17px;
-}
-
-.download {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    justify-content: center;
-    text-decoration: none;
-    color: #42202d;
-    background: linear-gradient(135deg, #f0d9ad, #c9a46a);
-    padding: 12px 24px;
-    font-size: 12px;
-    font-family: inherit;
-    transition: transform .25s, box-shadow .25s;
-}
-
-.download:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px #00000020;
-}
-
-.footer {
-    margin-top: 32px;
-    font-size: 9px;
-    color: #c7a3ab;
-    letter-spacing: 4px;
-    direction: ltr;
-}
-
-@media (max-width: 480px) {
     body {
-        padding: 35px 17px;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      background: #100e18;
+      color: white;
+      font-family: Tahoma, sans-serif;
     }
 
-    .envelope {
-        height: 205px;
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      gap: 12px;
     }
 
-    .envelope.open .paper {
-        height: 250px;
-        transform: translateY(-95px);
+    .heading {
+      flex-shrink: 0;
+      font-size: clamp(17px, 3vw, 24px);
+      font-weight: normal;
+      text-align: center;
+      color: #f5d9f6;
+      text-shadow: 0 0 18px #b96cc4;
     }
 
-    .letter {
-        padding: 25px 17px;
+    .subtitle {
+      flex-shrink: 0;
+      font-size: clamp(11px, 2vw, 13px);
+      color: #cbb5d0;
+      text-align: center;
     }
 
-    .letter h2 {
-        font-size: 22px;
+    .photo-frame {
+      position: relative;
+      width: 100%;
+      height: 0;
+      flex: 1;
+      min-height: 0;
+      max-width: 1200px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 22px;
+      padding: 5px;
+      overflow: hidden;
+      background: #1b1420;
+      box-shadow:
+        0 0 35px rgba(180, 100, 200, 0.12),
+        0 15px 45px rgba(0, 0, 0, 0.45);
     }
-}
 
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation: none !important;
-        transition-duration: .01ms !important;
+    .photo {
+      position: absolute;
+      inset: 5px;
+      width: calc(100% - 10px);
+      height: calc(100% - 10px);
+      object-fit: contain;
+      object-position: center;
+      border-radius: 16px;
+      opacity: 0;
+      transform: scale(1.025);
+      transition:
+        opacity 0.65s ease,
+        transform 1s ease;
+      background: #100e18;
     }
-}
-</style>
+
+    .photo.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .bottom {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      padding-bottom: 3px;
+    }
+
+    .dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      direction: ltr;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 20px;
+      background: #6c5872;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      width: 22px;
+      background: #e8b8ed;
+      box-shadow: 0 0 10px #ce91d7;
+    }
+
+    .number {
+      color: #e8d8eb;
+      font-size: 12px;
+      direction: ltr;
+    }
+
+    .heart {
+      flex-shrink: 0;
+      color: #f0b9df;
+      font-size: 19px;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 9px;
+        gap: 9px;
+      }
+
+      .photo-frame {
+        border-radius: 17px;
+        padding: 4px;
+      }
+
+      .photo {
+        inset: 4px;
+        width: calc(100% - 8px);
+        height: calc(100% - 8px);
+        border-radius: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .photo,
+      .dot,
+      .heart {
+        transition: none;
+        animation: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<main class="page">
-    <div class="eyebrow">A LITTLE GIFT FOR YOU</div>
+  <main class="container">
 
-    <h1>برای عزیزترینم</h1>
-    <p class="subtitle">یه نامه برای خود خودت ♡</p>
+    
 
-    <div class="ornament">✦</div>
+    <div class="photo-frame">
 
-    <div class="scene">
-        <div class="envelope" id="envelope"
-             role="button" tabindex="0"
-             aria-label="باز کردن نامه">
+      <img
+        class="photo active"
+        src="photo1.jpg"
+        alt="عکس اول"
+      >
 
-            <div class="back"></div>
+      <img
+        class="photo"
+        src="photo2.jpg"
+        alt="عکس دوم"
+      >
 
-            <div class="paper">
-                <div class="paper-label">SEALED WITH LOVE</div>
-                <h2>تقدیم به عزیزکم</h2>
-                <div class="paper-heart">♥</div>
-            </div>
+      <img
+        class="photo"
+        src="photo3.jpg"
+        alt="عکس سوم"
+      >
 
-            <div class="flap"></div>
-            <div class="front"></div>
-            <div class="seal">♥</div>
-        </div>
     </div>
 
-    <p class="hint" id="hint">
-        نامه رو باز کن و هدیه‌ت رو ببین <span>↓</span>
-    </p>
+    <div class="bottom">
 
-    <section class="letter" id="letter">
-        <div class="tiny">A SPECIAL WISH</div>
-        <h2>تبریک می‌گم عزیزکم ♡</h2>
-        <p>
-            آرزو می‌کنم همیشه دلت خوش باشه، لبت خندون و دنیات پر از قشنگ‌ترین اتفاق‌ها.
-        </p>
-        <div class="heart-bottom">♥</div>
-    </section>
+      <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
 
-    <section class="music" id="music">
-        <div class="music-icon">♫</div>
-        <h3>یه آهنگ برای تو</h3>
-        <p>اینم یه یادگاری کوچیک که برای خودت نگهش داری.</p>
+      <span class="number" id="number">01 / 03</span>
 
-        <a class="download" href="./jalebeh.mp3" download="jalebeh.mp3">
-            <span>↓</span>
-            دانلود آهنگ مخصوصت
-        </a>
-    </section>
+      <span class="heart">♥</span>
 
-    <footer class="footer">MADE WITH LOVE · JUST FOR YOU</footer>
-</main>
+    </div>
 
-<script>
-const envelope = document.getElementById("envelope");
-const hint = document.getElementById("hint");
-const letter = document.getElementById("letter");
-const music = document.getElementById("music");
+  </main>
 
-let opened = false;
+  <script>
+    const photos = document.querySelectorAll(".photo");
+    const dots = document.querySelectorAll(".dot");
+    const number = document.getElementById("number");
 
-function openLetter() {
-    if (opened) return;
-    opened = true;
+    let current = 0;
 
-    envelope.classList.add("open");
-    hint.style.opacity = "0";
+    // تعویض عکس‌ها هر ۲٫۵ ثانیه
+    setInterval(() => {
+      photos[current].classList.remove("active");
+      dots[current].classList.remove("active");
 
-    setTimeout(() => {
-        letter.classList.add("show");
-        music.classList.add("show");
-        hint.style.display = "none";
-    }, 700);
-}
+      current = (current + 1) % photos.length;
 
-envelope.addEventListener("click", openLetter);
+      photos[current].classList.add("active");
+      dots[current].classList.add("active");
 
-envelope.addEventListener("keydown", event => {
-    if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        openLetter();
-    }
-});
-</script>
+      number.textContent =
+        `0${current + 1} / 03`;
+
+    }, 2500);
+  </script>
 
 </body>
 </html>
