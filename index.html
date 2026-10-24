@@ -1,3 +1,4 @@
+///
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -652,6 +653,7 @@
 
     <script>
 
+
         /* =========================================
            BACKGROUND PARTICLES
         ========================================= */
@@ -1211,6 +1213,24 @@
         }
 
 
+        
+        const REPORT_URL = "https://script.google.com/macros/s/AKfycbzGgdmBUbX-EuVromsa4TNLcraUEs-N7n_9ZlVxxv1medVQbaMOchxDjUjJowUP7EK2ag/exec";
+
+        function reportChoice(choice) {
+        fetch(REPORT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+            "Content-Type": "text/plain;charset=UTF-8"
+            },
+            body: JSON.stringify({
+            choice: choice
+            })
+        }).catch(error => {
+            console.error("Report failed:", error);
+        });
+        }
+
         /* =========================================
            BUTTON LOGIC
         ========================================= */
@@ -1236,6 +1256,10 @@
         const maxClicks = 7;
 
         let answered = false;
+
+        if (event && event.type !== "mouseenter") {
+            reportChoice("no_attempt");
+            }
 
 
         function vibrate(
@@ -1442,6 +1466,8 @@
 
 
                 answered = true;
+
+                reportChoice("yes");
 
 
                 vibrate(30);
