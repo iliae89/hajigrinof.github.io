@@ -1,4 +1,4 @@
-/////
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -433,18 +433,12 @@
         ========================= */
 
         .love-message {
-                        /* فاصله‌ی زیر متن راهنما را کم می‌کند */
-            .hint,
-            .subtitle,
-            .description {
-                margin-bottom: 6px !important;
-            }
 
             display: none;
 
-            margin-top: 3px;
+            margin-top: 30px;
 
-            padding: 16px 20px;
+            padding: 24px 30px;
 
             border-radius: 20px;
 
@@ -486,10 +480,10 @@
 
         .rating-box {
             display: none;
-            margin-top: 6px;
-            padding: 14px 18px;
+            margin-top: 22px;
+            padding: 22px;
             border: 1px solid rgba(255, 49, 88, 0.25);
-            border-radius: 16px;
+            border-radius: 20px;
             background: rgba(255, 255, 255, 0.035);
             animation: messageIn 0.6s ease;
         }
@@ -596,7 +590,8 @@
 
             .container {
 
-                padding: 30px 24px 25px;
+                padding:
+                    40px 20px 35px;
 
                 border-radius: 26px;
             }
@@ -1288,29 +1283,38 @@
                     900
                 );
         }
-
-
-        
-        
+        // آدرس Web app منتشرشده در Google Apps Script
+        // اگر یک Web app جدید ساختی، URL جدید را دقیقاً اینجا قرار بده.
         const REPORT_URL = "https://script.google.com/macros/s/AKfycbzo9fEq15jFHW1HB07hZzplnhhsHDyRs4Qxh0AB9AtV1s3f44abF2akUCXF6IJLMFkH0g/exec";
 
+        // در حالت no-cors پاسخ سرور قابل خواندن نیست؛ این تابع فقط ارسال درخواست را پیگیری می‌کند.
         function reportChoice(choice, extra = {}) {
-        fetch(REPORT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-            "Content-Type": "text/plain;charset=UTF-8"
-            },
-            body: JSON.stringify({
-            choice: choice,
-            ...extra,
-            submittedAt: new Date().toISOString()
-            })
-        }).catch(error => {
-            console.error("Report failed:", error);
-        });
-        }
+            const payload = {
+                choice: String(choice),
+                ...extra,
+                submittedAt: new Date().toISOString(),
+                page: window.location.href
+            };
 
+            console.log("ارسال اطلاعات به Google Apps Script:", payload);
+
+            return fetch(REPORT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "text/plain;charset=UTF-8"
+                },
+                body: JSON.stringify(payload),
+                cache: "no-store",
+                redirect: "follow"
+            }).then(() => {
+                console.log("درخواست ارسال شد؛ ثبت واقعی را در Google Sheets بررسی کن.");
+                return true;
+            }).catch(error => {
+                console.error("ارسال درخواست ناموفق بود:", error);
+                return false;
+            });
+        }
 
         /* =========================================
            BUTTON LOGIC
@@ -1435,14 +1439,34 @@
             ratingValue.value = ratingSlider.value;
             ratingValue.textContent = ratingSlider.value;
         });
+        let ratingSubmitted = false;
 
-        submitRating.addEventListener("click", () => {
+        submitRating.addEventListener("click", async () => {
+            if (ratingSubmitted) return;
+
             const score = Number(ratingSlider.value);
-            reportChoice("rating", { score: score });
+            if (!Number.isInteger(score) || score < 1 || score > 10) {
+                ratingFeedback.textContent = "لطفاً یک امتیاز بین ۱ تا ۱۰ انتخاب کن.";
+                return;
+            }
+
             submitRating.disabled = true;
-            submitRating.textContent = "ثبت شد ✓";
-            ratingFeedback.textContent = `امتیاز ${score} از ۱۰ ثبت شد؛ مرسی که گفتی 🖤`;
+            submitRating.textContent = "در حال ارسال…";
+            ratingFeedback.textContent = "دارم امتیازت رو ارسال می‌کنم…";
+
+            const sent = await reportChoice("rating", { score });
+
+            if (sent) {
+                ratingSubmitted = true;
+                submitRating.textContent = "درخواست ارسال شد ✓";
+                ratingFeedback.textContent = `امتیاز ${score} ارسال شد. برای اطمینان، ردیف جدید را در Google Sheets بررسی کن 🖤`;
+            } else {
+                submitRating.disabled = false;
+                submitRating.textContent = "دوباره تلاش کن ↻";
+                ratingFeedback.textContent = "ارسال انجام نشد؛ اتصال اینترنت را بررسی کن و دوباره بزن.";
+            }
         });
+
 
         /* =========================================
            PREVENT SCROLL / RIGHT CLICK
