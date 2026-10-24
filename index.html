@@ -433,12 +433,18 @@
         ========================= */
 
         .love-message {
+                        /* فاصله‌ی زیر متن راهنما را کم می‌کند */
+            .hint,
+            .subtitle,
+            .description {
+                margin-bottom: 6px !important;
+            }
 
             display: none;
 
-            margin-top: 30px;
+            margin-top: 3px;
 
-            padding: 24px 30px;
+            padding: 16px 20px;
 
             border-radius: 20px;
 
@@ -476,6 +482,69 @@
 
         .love-message.show {
             display: inline-block;
+        }
+
+        .rating-box {
+            display: none;
+            margin-top: 6px;
+            padding: 14px 18px;
+            border: 1px solid rgba(255, 49, 88, 0.25);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.035);
+            animation: messageIn 0.6s ease;
+        }
+
+        .rating-box.show { display: block; }
+
+        .rating-question {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #f5f5f5;
+        }
+
+        .rating-value {
+            display: inline-block;
+            min-width: 42px;
+            margin-bottom: 12px;
+            color: #ff5575;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        #ratingSlider {
+            width: 100%;
+            accent-color: #ff3158;
+            cursor: pointer;
+            margin: 8px 0 18px;
+            touch-action: pan-y;
+        }
+
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            color: #8993a2;
+            font-size: 0.8rem;
+            direction: ltr;
+        }
+
+        .submit-rating {
+            border: 0;
+            border-radius: 12px;
+            padding: 13px 24px;
+            color: white;
+            background: linear-gradient(135deg, #ff3158, #c8103d);
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 18px;
+        }
+
+        .rating-feedback {
+            min-height: 24px;
+            margin-top: 12px;
+            color: #ff9aad;
+            font-size: 0.95rem;
         }
 
         @keyframes messageIn {
@@ -527,8 +596,7 @@
 
             .container {
 
-                padding:
-                    40px 20px 35px;
+                padding: 30px 24px 25px;
 
                 border-radius: 26px;
             }
@@ -646,6 +714,15 @@
             id="loveMessage"
         >
             پس می‌بینمت 😁
+        </div>
+
+        <div class="rating-box" id="ratingBox">
+            <p class="rating-question">به این دوران از ۱۰ چند می‌دی؟ 🖤</p>
+            <output class="rating-value" id="ratingValue" for="ratingSlider">5</output>
+            <div class="rating-scale"><span>۱</span><span>۱۰</span></div>
+            <input id="ratingSlider" type="range" min="1" max="10" step="1" value="5" aria-label="امتیاز از یک تا ده">
+            <button class="submit-rating" id="submitRating" type="button">ثبت امتیاز ✨</button>
+            <p class="rating-feedback" id="ratingFeedback" aria-live="polite"></p>
         </div>
 
     </div>
@@ -1216,19 +1293,21 @@
         
         const REPORT_URL = "https://script.google.com/macros/s/AKfycbzo9fEq15jFHW1HB07hZzplnhhsHDyRs4Qxh0AB9AtV1s3f44abF2akUCXF6IJLMFkH0g/exec";
 
-        function reportChoice(choice) {
-        fetch(REPORT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-            "Content-Type": "text/plain;charset=UTF-8"
-            },
-            body: JSON.stringify({
-            choice: choice
-            })
-        }).catch(error => {
-            console.error("Report failed:", error);
-        });
+        function reportChoice(choice, extra = {}) {
+            fetch(REPORT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "text/plain;charset=UTF-8"
+                },
+                body: JSON.stringify({
+                    choice: choice,
+                    ...extra,
+                    submittedAt: new Date().toISOString()
+                })
+            }).catch(error => {
+                console.error("Report failed:", error);
+            });
         }
 
         /* =========================================
@@ -1251,246 +1330,117 @@
             );
 
 
-        let noClicks = 0;
-
-        const maxClicks = 7;
-
+        let noMoves = 0;
+        const maxNoMoves = 3;
         let answered = false;
 
-        if (event && event.type !== "mouseenter") {
-            reportChoice("no_attempt");
-            }
-
-
-        function vibrate(
-            time = 15
-        ) {
-
-            if (
-                navigator.vibrate
-            ) {
-
-                navigator.vibrate(
-                    time
-                );
-            }
+        function vibrate(time = 15) {
+            if (navigator.vibrate) navigator.vibrate(time);
         }
-
 
         function moveNoButton(event) {
+            if (answered || noBtn.classList.contains("hidden")) return;
 
-            if (
-                answered ||
-                noBtn.classList.contains(
-                    "hidden"
-                )
-            ) {
+            // بعد از سه بار جابه‌جایی، دکمه در جای خودش می‌ماند.
+            if (noMoves >= maxNoMoves) return;
 
-                return;
-            }
-
-
-            if (event) {
-
-                event.preventDefault();
-            }
-
-
+            if (event) event.preventDefault();
+            noMoves++;
             vibrate(10);
 
+            const margin = 12;
+            const maxX = Math.max(margin, window.innerWidth - noBtn.offsetWidth - margin);
+            const maxY = Math.max(margin, window.innerHeight - noBtn.offsetHeight - margin);
 
-            noClicks++;
+            // هر بار دکمه را به یک نقطه‌ی تصادفی داخل صفحه منتقل کن.
+            const currentRect = noBtn.getBoundingClientRect();
+            let x = margin + Math.random() * Math.max(0, maxX - margin);
+            let y = margin + Math.random() * Math.max(0, maxY - margin);
 
+            // اگر جای تصادفی خیلی نزدیک نقطه‌ی فعلی بود، یک بار دیگر انتخاب کن.
+            if (Math.abs(x - currentRect.left) < 100 && Math.abs(y - currentRect.top) < 70) {
+                x = margin + Math.random() * Math.max(0, maxX - margin);
+                y = margin + Math.random() * Math.max(0, maxY - margin);
+            }
 
-            /* بعد از ۷ بار ناپدید شود */
+            noBtn.style.position = "fixed";
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            noBtn.style.zIndex = "1000";
+            noBtn.style.transform = "scale(1)";
 
-            if (
-                noClicks >=
-                maxClicks
-            ) {
+            if (noMoves >= maxNoMoves) {
+                noBtn.title = "حالا می‌تونی انتخابت رو ثبت کنی :)";
+            }
+        }
 
-                noBtn.classList.add(
-                    "hidden"
-                );
+        noBtn.addEventListener("click", (event) => {
+            if (answered) return;
 
-                yesBtn.classList.add(
-                    "glow"
-                );
-
+            if (noMoves < maxNoMoves) {
+                moveNoButton(event);
                 return;
             }
 
+            answered = true;
+            reportChoice("no");
+            noBtn.disabled = true;
+            yesBtn.style.display = "none";
+            noBtn.textContent = "انتخاب شد";
+            noBtn.style.position = "static";
+            noBtn.style.transform = "none";
+            noBtn.style.cursor = "default";
+            loveMessage.textContent = "باشه، نظرت محترمه :)";
+            loveMessage.classList.add("show");
+        });
 
-            const container =
-                document.querySelector(
-                    ".container"
-                );
-
-
-            const rect =
-                container.getBoundingClientRect();
-
-
-            const angle =
-                Math.random() *
-                Math.PI * 2;
-
-
-            const distance =
-                150 +
-                Math.random() * 180;
-
-
-            let x =
-                rect.left +
-                rect.width / 2 +
-                Math.cos(angle) *
-                distance -
-                noBtn.offsetWidth / 2;
-
-
-            let y =
-                rect.top +
-                rect.height / 2 +
-                Math.sin(angle) *
-                distance -
-                noBtn.offsetHeight / 2;
-
-
-            const margin = 10;
-
-
-            const maxX =
-                window.innerWidth -
-                noBtn.offsetWidth -
-                margin;
-
-
-            const maxY =
-                window.innerHeight -
-                noBtn.offsetHeight -
-                margin;
-
-
-            x =
-                Math.max(
-                    margin,
-                    Math.min(
-                        x,
-                        maxX
-                    )
-                );
-
-
-            y =
-                Math.max(
-                    margin,
-                    Math.min(
-                        y,
-                        maxY
-                    )
-                );
-
-
-            noBtn.style.position =
-                "fixed";
-
-
-            noBtn.style.left =
-                x + "px";
-
-
-            noBtn.style.top =
-                y + "px";
-
-
-            noBtn.style.zIndex =
-                "1000";
-
-
-            const scale =
-                Math.max(
-                    0.1,
-                    1 -
-                    noClicks * 0.12
-                );
-
-
-            noBtn.style.transform =
-                `scale(${scale})`;
-        }
-
-
-        noBtn.addEventListener(
-            "click",
-            moveNoButton
-        );
-
-
-        noBtn.addEventListener(
-            "touchstart",
-            moveNoButton,
-            {
-                passive: false
+        noBtn.addEventListener("touchstart", (event) => {
+            if (!answered && noMoves < maxNoMoves) {
+                moveNoButton(event);
             }
-        );
+        }, { passive: false });
 
-
-        noBtn.addEventListener(
-            "mouseenter",
-            event => {
-
-                if (
-                    window.innerWidth >
-                    768
-                ) {
-
-                    moveNoButton(
-                        event
-                    );
-                }
+        noBtn.addEventListener("mouseenter", (event) => {
+            if (window.innerWidth > 768 && noMoves < maxNoMoves) {
+                moveNoButton(event);
             }
-        );
-
+        });
 
         /* =========================================
            YES BUTTON
         ========================================= */
 
-        yesBtn.addEventListener(
-            "click",
-            () => {
+        yesBtn.addEventListener("click", () => {
+            if (answered) return;
 
-                if (answered)
-                    return;
+            answered = true;
+            reportChoice("yes");
+            vibrate(30);
 
+            noBtn.classList.add("hidden");
+            yesBtn.style.display = "none";
+            loveMessage.classList.add("show");
+            document.getElementById("ratingBox").classList.add("show");
+            celebration();
+        });
 
-                answered = true;
+        const ratingSlider = document.getElementById("ratingSlider");
+        const ratingValue = document.getElementById("ratingValue");
+        const submitRating = document.getElementById("submitRating");
+        const ratingFeedback = document.getElementById("ratingFeedback");
 
-                reportChoice("yes");
+        ratingSlider.addEventListener("input", () => {
+            ratingValue.value = ratingSlider.value;
+            ratingValue.textContent = ratingSlider.value;
+        });
 
-
-                vibrate(30);
-
-
-                noBtn.classList.add(
-                    "hidden"
-                );
-
-
-                yesBtn.style.display =
-                    "none";
-
-
-                loveMessage.classList.add(
-                    "show"
-                );
-
-
-                celebration();
-            }
-        );
-
+        submitRating.addEventListener("click", () => {
+            const score = Number(ratingSlider.value);
+            reportChoice("rating", { score: score });
+            submitRating.disabled = true;
+            submitRating.textContent = "ثبت شد ✓";
+            ratingFeedback.textContent = `امتیاز ${score} از ۱۰ ثبت شد؛ مرسی که گفتی 🖤`;
+        });
 
         /* =========================================
            PREVENT SCROLL / RIGHT CLICK
@@ -1500,26 +1450,6 @@
             "contextmenu",
             event =>
                 event.preventDefault()
-        );
-
-
-        document.addEventListener(
-            "touchmove",
-            event => {
-
-                if (
-                    event.target.closest(
-                        ".container"
-                    )
-                ) {
-
-                    event.preventDefault();
-                }
-
-            },
-            {
-                passive: false
-            }
         );
 
 
