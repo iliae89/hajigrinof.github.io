@@ -1291,24 +1291,26 @@
 
 
         
+        
         const REPORT_URL = "https://script.google.com/macros/s/AKfycbzo9fEq15jFHW1HB07hZzplnhhsHDyRs4Qxh0AB9AtV1s3f44abF2akUCXF6IJLMFkH0g/exec";
 
         function reportChoice(choice, extra = {}) {
-            fetch(REPORT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: {
-                    "Content-Type": "text/plain;charset=UTF-8"
-                },
-                body: JSON.stringify({
-                    choice: choice,
-                    ...extra,
-                    submittedAt: new Date().toISOString()
-                })
-            }).catch(error => {
-                console.error("Report failed:", error);
-            });
+        fetch(REPORT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+            "Content-Type": "text/plain;charset=UTF-8"
+            },
+            body: JSON.stringify({
+            choice: choice,
+            ...extra,
+            submittedAt: new Date().toISOString()
+            })
+        }).catch(error => {
+            console.error("Report failed:", error);
+        });
         }
+
 
         /* =========================================
            BUTTON LOGIC
